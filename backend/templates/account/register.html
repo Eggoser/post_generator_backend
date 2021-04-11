@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-5 mb-3">Регистрация</h1>
+        <form action="{% url 'register' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_email">Email:</label>
+                <input class="form-control" type="text" name="email" maxlength="150" required id="id_email">
+            </div>
+
+            <div class="form-group">
+                <label for="id_username">Username:</label>
+                <input class="form-control" type="text" name="username" maxlength="50" required id="id_username">
+            </div>
+
+            <div class="form-group">
+                <label for="id_password">Password:</label>
+                <input class="form-control" type="password" name="password" maxlength="100" required id="id_password">
+            </div>
+
+            <div class="form-group">
+                <label for="id_password_repeat">Password repeat:</label>
+                <input class="form-control" type="password" name="password_repeat" maxlength="100" required id="id_password_repeat">
+            </div>
+            <input type="submit" class="btn btn-primary" value="Зарегистрироваться">
+        </form>
+    </div>
+
+{% endblock %}

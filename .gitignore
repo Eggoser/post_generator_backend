@@ -1,0 +1,6 @@
+/venv
+/backend/db.sqlite3
+/backend/app/migrations
+/**/__pycache__
+.idea
+/backend/main.txt
