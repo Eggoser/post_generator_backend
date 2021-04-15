@@ -28,6 +28,7 @@ class User(AbstractBaseUser):
 # таблицы зависит от User
 class GeneratedPost(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    image_filename = models.CharField(max_length=300, blank=True, null=True)
     content = models.CharField(max_length=5000)
 
 

@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container mt-3">
-        <h1>Страница профиля</h1>
+        <h1 class="mb-4 mt-4">Страница профиля</h1>
         <form action="{% url 'profile' %}" method="POST">
             {% csrf_token %}
             <table class="table">
