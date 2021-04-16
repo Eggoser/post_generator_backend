@@ -15,28 +15,22 @@
 
                             {% if value.type == "dynamic" %}
                                 <td>
-                                    <input class="form-control" type="text" name="{{ key }}" id="{{ key }}" value="{{ value.value }}">
+                                    <div class="input-group">
+{#                                        <div class="input-group-prepend">#}
+{#                                            <div class="input-group-text">@</div>#}
+{#                                        </div>#}
+                                        <input class="form-control" type="text" name="{{ key }}" id="{{ key }}" value="{{ value.value }}" placeholder="{{ value.placeholder }}">
+                                    </div>
                                 </td>
                             {% elif value.type == "static" %}
                                 <td>
-                                    <span>{{ value.value }}</span>
+                                    <input class="form-control-plaintext" readonly type="text" name="{{ key }}" id="{{ key }}" value="{{ value.value }}">
                                 </td>
                             {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-{#            {% for key, value in parameters.items %}#}
-{#                <div class="form-group">#}
-{#                    <label for="{{ key }}">{{ key }}:</label>#}
-{#                    {% if value.type == "dynamic" %}#}
-{#                        <input type="text" name="{{ key }}" id="{{ key }}" value="{{ value.value }}">#}
-{#                    {% elif value.type == "static" %}#}
-{#                        <span>{{ value.value }}</span>#}
-{#                    {% endif %}#}
-{#                </div>#}
-{##}
-{#            {% endfor %}#}
             <div>
                 <input type="submit" class="btn btn-primary">
                 <a href="{% url 'logout' %}" class="btn btn-danger ml-2">Выйти из аккаунта</a>

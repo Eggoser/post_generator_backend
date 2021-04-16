@@ -3,8 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from django.conf import settings
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.core.mail import send_mail
 from django.conf import settings
 from django.db.utils import IntegrityError
@@ -15,7 +14,6 @@ import base64
 import uuid
 import io
 import os
-# import cv2
 from PIL import Image
 
 from .forms import UserAuthForm, UserRegisterForm
@@ -100,22 +98,31 @@ def register_page(request):
 def profile_page(request):
     user = User.objects.get(pk=request.user.id)
 
+    if request.method == "POST":
+        insta_url = request.POST.get("@Instagram")
+        user.instagram_url = insta_url
+        user.save()
+
     form_parameters = {
         "Эл. почта": {
             "value": user.email,
-            "type": "static"
+            "type": "static",
+            "placeholder": ""
         },
         "Имя пользователя": {
             "value": user.username,
-            "type": "static"
+            "type": "static",
+            "placeholder": ""
         },
-        "Ссылка на аккаунт instagram": {
+        "@Instagram": {
             "value": user.instagram_url or "",
-            "type": "dynamic"
+            "type": "dynamic",
+            "placeholder": "@voftik"
         },
         "Роль на сайте": {
             "value": "Администратор" if user.is_admin else "Пользователь",
-            "type": "static"
+            "type": "static",
+            "placeholder": ""
         }
     }
 
@@ -144,7 +151,7 @@ def model_generate_post(request):
         generated_text = generate_text()
 
         cur_user = User.objects.get(pk=request.user.id)
-        generated_post = GeneratedPost(tags=" ".join(tags),
+        generated_post = GeneratedPost(tags=" | ".join(tags),
                                        content=generated_text,
                                        image_filename=new_filename,
                                        user_id=cur_user)
@@ -156,4 +163,7 @@ def model_generate_post(request):
 
 
 def model_history(request):
-    pass
+    user = User.objects.get(pk=request.user.id)
+    user_local_history = GeneratedPost.objects.filter(user_id=user)
+
+    return render(request, "model/history.html", context={"history": user_local_history})

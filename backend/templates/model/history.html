@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Теги</th>
+                <th scope="col">Сгенерированный пост</th>
+                <th scope="col">Имя изображения</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for post in history %}
+                    <tr>
+                        <th scope="row">{{ post.pk }}</th>
+                        <td>{{ post.tags }}</td>
+                        <td>{{ post.content }}</td>
+                        <td>{{ post.image_filename }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

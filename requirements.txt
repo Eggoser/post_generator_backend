@@ -11,7 +11,7 @@ filelock==3.0.12
 httplib2==0.19.1
 idna==2.10
 joblib==1.0.1
-numpy==1.20.2
+numpy
 oauth2==1.9.0.post1
 oauthlib==3.1.0
 opencv-python==4.5.1.48
@@ -34,7 +34,7 @@ social-auth-app-django==4.0.0
 social-auth-core==4.1.0
 sqlparse==0.4.1
 tokenizers==0.9.3
-torch==1.4.0
+torch==1.8.0
 tqdm==4.60.0
 transformers==3.5.0
 urllib3==1.26.4
