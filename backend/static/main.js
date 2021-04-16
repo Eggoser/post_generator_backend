@@ -57,7 +57,6 @@ var demo = new Vue({
         startTimer(){
             if (!this.generatePageDataLocal.tags){
                 var tags = $("#TagsInput").val()
-                console.log(tags)
                 if (!tags) {
                     return
                 }
@@ -71,7 +70,6 @@ var demo = new Vue({
                     }
                 }
             }
-            console.log("animation")
             var el = $("#animation");
             el.css("display", "flex");
 
@@ -84,7 +82,7 @@ var demo = new Vue({
                     "image": this.generatePageDataLocal.imageBinary
                 }),
                 url: this.generatePageDataLocal.generatePostAddr,
-                // async: false,
+                async: true,
                 success: this.getResponseSuccess,
             });
         },
