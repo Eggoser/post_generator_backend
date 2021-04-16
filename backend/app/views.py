@@ -28,6 +28,8 @@ def call_gpt(text, tags, length=70, with_tags=False):
         compiler = os.path.join(settings.BASE_DIR / "app" / 'gpt/virtual/bin/python3')
         ex_file = os.path.join(settings.BASE_DIR / "app" / 'gpt/gpt.py')
 
+        print(compiler, ex_file)
+
         if with_tags:
             output = subprocess.check_output([compiler, ex_file, text, str(length), tags])
         else:
