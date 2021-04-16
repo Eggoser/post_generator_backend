@@ -71,7 +71,7 @@ var demo = new Vue({
                     }
                 }
             }
-
+            console.log("animation")
             var el = $("#animation");
             el.css("display", "flex");
 
@@ -86,9 +86,6 @@ var demo = new Vue({
                 url: this.generatePageDataLocal.generatePostAddr,
                 async: false,
                 success: this.getResponseSuccess,
-                error: function (){
-                    console.log("govno")
-                }
             });
         },
     },
