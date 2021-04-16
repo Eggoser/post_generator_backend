@@ -135,6 +135,10 @@ AUTH_USER_MODEL = 'app.User'
 # password - postomaker3528
 
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
 EMAIL_HOST = 'smtp.yandex.com'
 EMAIL_HOST_USER = 'PostMakerOfficial@yandex.ru'
 EMAIL_HOST_PASSWORD = 'postomaker3528'

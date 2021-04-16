@@ -51,7 +51,6 @@ var demo = new Vue({
 
             var reader = new FileReader();
             reader.onload = this.getFileRawDataHandler
-
             reader.readAsBinaryString(f.files[0])
         },
 
@@ -76,7 +75,6 @@ var demo = new Vue({
             var el = $("#animation");
             el.css("display", "flex");
 
-            console.log(this.generatePageDataLocal.imageBinary)
             $.ajax({
                 type: "POST",
                 dataType: "json",

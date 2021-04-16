@@ -3,12 +3,20 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core.mail import send_mail
 from django.conf import settings
 from django.db.utils import IntegrityError
 
 from smtplib import SMTPRecipientsRefused
+import json
+import base64
+import uuid
+import io
+import os
+# import cv2
+from PIL import Image
 
 from .forms import UserAuthForm, UserRegisterForm
 from .models import User, GeneratedPost
@@ -122,8 +130,27 @@ def generate_text():
 @login_required
 def model_generate_post(request):
     if request.method == "POST":
-        print(request.body)
-        return JsonResponse({"message": "hello world from django"})
+        json_data = json.loads(request.body)
+
+        tags = json_data["tags"]
+
+        image_raw = io.BytesIO(base64.b64decode(json_data["image"]))
+        img = Image.open(image_raw)
+        img = img.convert("RGB")
+
+        new_filename = uuid.uuid4().hex + ".jpg"
+        img.save(os.path.join(settings.MEDIA_ROOT, new_filename), format="JPEG")
+
+        generated_text = generate_text()
+
+        cur_user = User.objects.get(pk=request.user.id)
+        generated_post = GeneratedPost(tags=" ".join(tags),
+                                       content=generated_text,
+                                       image_filename=new_filename,
+                                       user_id=cur_user)
+        generated_post.save()
+
+        return JsonResponse({"message": generated_text})
 
     return render(request, "model/generate_post.html")
 
