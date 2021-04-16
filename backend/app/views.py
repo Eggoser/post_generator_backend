@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.conf import settings
 from django.http import HttpResponseRedirect, JsonResponse
 from django.core.mail import send_mail
 from django.conf import settings
@@ -23,14 +24,17 @@ from .decorators import redirect_on_auth
 
 
 def call_gpt(text, tags, length=70, with_tags=False):
-    # try:
+    try:
+        compiler = os.path.join(settings.BASE_DIR / "app" / 'gpt/virtual/bin/python3')
+        ex_file = os.path.join(settings.BASE_DIR / "app" / 'gpt/gpt.py')
+
         if with_tags:
-            output = subprocess.check_output(['./gpt/virtual/bin/python3', 'gpt/gpt.py', text, str(length), tags])
+            output = subprocess.check_output([compiler, ex_file, text, str(length), tags])
         else:
-            output = subprocess.check_output(['./gpt/virtual/bin/python3', 'gpt/gpt.py', text, str(length)])
-    # except:
-    #     return "Error :("
-        return output
+            output = subprocess.check_output([compiler, ex_file, text, str(length)])
+    except:
+        return "Error :("
+    return output
 
 
 def hello_page(request):
