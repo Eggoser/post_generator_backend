@@ -163,7 +163,7 @@ def model_generate_post(request):
         file_path = os.path.join(settings.MEDIA_ROOT, new_filename)
         img.save(file_path, format="JPEG")
 
-        generated_text = call_gpt(text="", tags="|".join(tags))
+        generated_text = call_gpt(text="привет мир", tags="|".join(tags))
 
         cur_user = User.objects.get(pk=request.user.id)
         generated_post = GeneratedPost(tags=" | ".join(tags),
