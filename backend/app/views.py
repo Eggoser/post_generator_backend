@@ -36,7 +36,7 @@ def call_gpt(text, tags, length=70, with_tags=False):
             output = subprocess.check_output([compiler, ex_file, text, str(length)])
     except:
         return "Error :("
-    return output
+    return output.decode()
 
 
 def hello_page(request):
