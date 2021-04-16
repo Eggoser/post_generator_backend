@@ -24,7 +24,7 @@ from .decorators import redirect_on_auth
 
 
 def call_gpt(text, tags, length=70, with_tags=False):
-    try:
+    # try:
         compiler = os.path.join(settings.BASE_DIR / "app" / 'gpt/virtual/bin/python3')
         ex_file = os.path.join(settings.BASE_DIR / "app" / 'gpt/gpt.py')
 
@@ -34,9 +34,9 @@ def call_gpt(text, tags, length=70, with_tags=False):
             output = subprocess.check_output([compiler, ex_file, text, str(length), tags])
         else:
             output = subprocess.check_output([compiler, ex_file, text, str(length)])
-    except:
-        return "Error :("
-    return output.decode()
+    # except:
+    #     return "Error :("
+        return output.decode()
 
 
 def hello_page(request):
