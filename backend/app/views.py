@@ -23,14 +23,14 @@ from .decorators import redirect_on_auth
 
 
 def call_gpt(text, tags, length=70, with_tags=False):
-    try:
+    # try:
         if with_tags:
             output = subprocess.check_output(['./gpt/virtual/bin/python3', 'gpt/gpt.py', text, str(length), tags])
         else:
             output = subprocess.check_output(['./gpt/virtual/bin/python3', 'gpt/gpt.py', text, str(length)])
-    except:
-        return "Error :("
-    return output
+    # except:
+    #     return "Error :("
+        return output
 
 
 def hello_page(request):
