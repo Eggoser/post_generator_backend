@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/home/romantihiy/post_generator_backend/backend
-ExecStart=/home/romantihiy/post_generator_backend/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/run/post_generator_backend.sock main.wsgi:application
+WorkingDirectory=/home/iii/post_generator_backend/backend
+ExecStart=/home/iii/post_generator_backend/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/run/post_generator_backend.sock main.wsgi:application
 [Install]
 WantedBy=multi-user.target

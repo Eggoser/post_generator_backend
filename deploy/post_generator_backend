@@ -3,7 +3,7 @@ server {
     server_name 178.154.194.84;
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
-        root /home/romantihiy/post_generator_backend/backend;
+        root /home/iii/post_generator_backend/backend;
     }
 
     location / {
