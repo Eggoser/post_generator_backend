@@ -14,11 +14,23 @@ import base64
 import uuid
 import io
 import os
+import subprocess
 from PIL import Image
 
 from .forms import UserAuthForm, UserRegisterForm
 from .models import User, GeneratedPost
 from .decorators import redirect_on_auth
+
+
+def call_gpt(text, tags, length=70, with_tags=False):
+    try:
+        if with_tags:
+            output = subprocess.check_output(['./gpt/virtual/bin/python3', 'gpt/gpt.py', text, str(length), tags])
+        else:
+            output = subprocess.check_output(['./gpt/virtual/bin/python3', 'gpt/gpt.py', text, str(length)])
+    except:
+        return "Error :("
+    return output
 
 
 def hello_page(request):
@@ -129,10 +141,6 @@ def profile_page(request):
     return render(request, "account/profile.html", context={"parameters": form_parameters})
 
 
-def generate_text():
-    return "hello world"
-
-
 @csrf_exempt
 @login_required
 def model_generate_post(request):
@@ -146,9 +154,10 @@ def model_generate_post(request):
         img = img.convert("RGB")
 
         new_filename = uuid.uuid4().hex + ".jpg"
-        img.save(os.path.join(settings.MEDIA_ROOT, new_filename), format="JPEG")
+        file_path = os.path.join(settings.MEDIA_ROOT, new_filename)
+        img.save(file_path, format="JPEG")
 
-        generated_text = generate_text()
+        generated_text = call_gpt(text="", tags="|".join(tags))
 
         cur_user = User.objects.get(pk=request.user.id)
         generated_post = GeneratedPost(tags=" | ".join(tags),
