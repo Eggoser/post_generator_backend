@@ -84,7 +84,7 @@ var demo = new Vue({
                     "image": this.generatePageDataLocal.imageBinary
                 }),
                 url: this.generatePageDataLocal.generatePostAddr,
-                async: false,
+                // async: false,
                 success: this.getResponseSuccess,
             });
         },
